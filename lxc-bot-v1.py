@@ -61,13 +61,13 @@ def truncate_text(text, max_length=1024):
 def create_embed(title, description="", color=0x1a1a1a):
     """Create a dark-themed embed with proper field length handling and UnixNodes branding"""
     embed = discord.Embed(
-        title=truncate_text(f"⭐ UnixNodes - {title}", 256),
+        title=truncate_text(f"⭐ RoyalLabs - {title}", 256),
         description=truncate_text(description, 4096),
         color=color
     )
 
     embed.set_thumbnail(url="https://i.imgur.com/xSsIERx.png")
-    embed.set_footer(text=f"UnixNodes VPS Manager • {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
+    embed.set_footer(text=f"RoyalLabs VPS Manager • {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
                     icon_url="https://i.imgur.com/xSsIERx.png")
 
     return embed
@@ -132,7 +132,7 @@ def is_admin():
         if user_id == str(MAIN_ADMIN_ID) or user_id in admin_data.get("admins", []):
             return True
         # Custom error handling moved to on_command_error for better UX
-        raise commands.CheckFailure(f"You need admin permissions to use this command. Contact UnixNodes support.")
+        raise commands.CheckFailure(f"You need admin permissions to use this command. Contact RoyalLabs support.")
     return commands.check(predicate)
 
 def is_main_admin():
@@ -183,9 +183,9 @@ async def get_or_create_vps_role(guild):
     
     try:
         role = await guild.create_role(
-            name="UnixNodes VPS User",
+            name="RoyalLabs VPS User",
             color=discord.Color.dark_purple(),
-            reason="UnixNodes VPS User role for bot management",
+            reason="RoyalLabs VPS User role for bot management",
             permissions=discord.Permissions.none()
         )
         VPS_USER_ROLE_ID = role.id
@@ -444,7 +444,7 @@ async def on_command_error(ctx, error):
         await ctx.send(embed=create_error_embed("Error", "The requested resource was not found. Please try again."))
     else:
         logger.error(f"Command error: {error}")
-        await ctx.send(embed=create_error_embed("System Error", "An unexpected error occurred. UnixNodes support has been notified."))
+        await ctx.send(embed=create_error_embed("System Error", "An unexpected error occurred. RoyalLabs support has been notified."))
 
 # Bot commands
 @bot.command(name='ping')
